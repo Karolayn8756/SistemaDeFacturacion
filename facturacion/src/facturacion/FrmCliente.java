@@ -1,200 +1,189 @@
 package facturacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmCliente extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField txtCedula;
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
-	private JTextField txtDireccion;
 	private JTextField txtTelefono;
 	private JTextField txtEmail;
+	private JTextField txtDireccion;
+	private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	private JButton btnGuardar;
 	private JTable table;
-	private Cliente cliente = new Cliente();
 	private DefaultTableModel model;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmCliente frame = new FrmCliente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public FrmCliente() {
-		setBounds(100, 100, 425, 583);
+		setTitle("Agregar Clientes");
+		setBounds(100, 100, 450, 500);
 		getContentPane().setLayout(null);
 		
-		JPanel contentPane = new JPanel();
-		contentPane.setLayout(null);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBounds(0, 0, 540, 684);
-		getContentPane().add(contentPane);
+		JLabel lblCedula = new JLabel("Cédula");
+		lblCedula.setFont(new Font("Sitka Text", Font.BOLD, 15));
+		lblCedula.setBounds(39, 26, 118, 14);
+		getContentPane().add(lblCedula);
 		
-		JLabel lblNewLabel = new JLabel("Cédula");
-		lblNewLabel.setFont(new Font("Sitka Text", Font.BOLD, 13));
-		lblNewLabel.setBounds(10, 11, 57, 29);
-		contentPane.add(lblNewLabel);
+		JLabel lblNombres = new JLabel("Nombres");
+		lblNombres.setFont(new Font("Sitka Text", Font.BOLD, 15));
+		lblNombres.setBounds(39, 65, 88, 14);
+		getContentPane().add(lblNombres);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nombres");
-		lblNewLabel_1.setFont(new Font("Sitka Text", Font.BOLD, 13));
-		lblNewLabel_1.setBounds(10, 51, 57, 29);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblApellidos = new JLabel("Apellidos");
+		lblApellidos.setFont(new Font("Sitka Text", Font.BOLD, 15));
+		lblApellidos.setBounds(39, 104, 88, 14);
+		getContentPane().add(lblApellidos);
 		
-		JLabel lblNewLabel_2 = new JLabel("Apellidos");
-		lblNewLabel_2.setFont(new Font("Sitka Text", Font.BOLD, 13));
-		lblNewLabel_2.setBounds(10, 91, 57, 14);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblTelefono = new JLabel("Télefono");
+		lblTelefono.setFont(new Font("Sitka Text", Font.BOLD, 15));
+		lblTelefono.setBounds(39, 143, 88, 14);
+		getContentPane().add(lblTelefono);
 		
-		JLabel lblNewLabel_3 = new JLabel("Dirección");
-		lblNewLabel_3.setFont(new Font("Sitka Text", Font.BOLD, 13));
-		lblNewLabel_3.setBounds(10, 116, 57, 29);
-		contentPane.add(lblNewLabel_3);
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setFont(new Font("Sitka Text", Font.BOLD, 15));
+		lblEmail.setBounds(39, 182, 88, 14);
+		getContentPane().add(lblEmail);
 		
-		JLabel lblNewLabel_4 = new JLabel("Teléfono");
-		lblNewLabel_4.setFont(new Font("Sitka Text", Font.BOLD, 13));
-		lblNewLabel_4.setBounds(10, 156, 57, 29);
-		contentPane.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Email");
-		lblNewLabel_5.setFont(new Font("Sitka Text", Font.BOLD, 13));
-		lblNewLabel_5.setBounds(10, 196, 57, 29);
-		contentPane.add(lblNewLabel_5);
+		JLabel lblDireccion = new JLabel("Dirección");
+		lblDireccion.setFont(new Font("Sitka Text", Font.BOLD, 15));
+		lblDireccion.setBounds(39, 221, 103, 14);
+		getContentPane().add(lblDireccion);
 		
 		txtCedula = new JTextField();
+		txtCedula.setBounds(119, 25, 260, 20);
+		getContentPane().add(txtCedula);
 		txtCedula.setColumns(10);
-		txtCedula.setBounds(103, 16, 121, 20);
-		contentPane.add(txtCedula);
 		
 		txtNombres = new JTextField();
 		txtNombres.setColumns(10);
-		txtNombres.setBounds(103, 56, 121, 20);
-		contentPane.add(txtNombres);
+		txtNombres.setBounds(119, 64, 260, 20);
+		getContentPane().add(txtNombres);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(103, 89, 121, 20);
-		contentPane.add(txtApellidos);
-		
-		txtDireccion = new JTextField();
-		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(103, 121, 121, 20);
-		contentPane.add(txtDireccion);
+		txtApellidos.setBounds(119, 103, 260, 20);
+		getContentPane().add(txtApellidos);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(103, 161, 121, 20);
-		contentPane.add(txtTelefono);
+		txtTelefono.setBounds(119, 142, 260, 20);
+		getContentPane().add(txtTelefono);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(103, 201, 121, 20);
-		contentPane.add(txtEmail);
+		txtEmail.setBounds(119, 181, 260, 20);
+		getContentPane().add(txtEmail);
+		
+		txtDireccion = new JTextField();
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(119, 220, 260, 20);
+		getContentPane().add(txtDireccion);
 		
 		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBackground(new Color(128, 128, 192));
+		btnNuevo.setFont(new Font("Sitka Text", Font.PLAIN, 10));
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtCedula.setText(" ");
-				txtNombres.setText(" ");
-				txtApellidos.setText(" ");
-				txtDireccion.setText(" ");
-				txtTelefono.setText(" ");
-				txtEmail.setText(" ");
+				limpiarCampos();
 			}
 		});
-		btnNuevo.setFont(new Font("Sitka Text", Font.BOLD, 14));
-		btnNuevo.setBounds(20, 236, 96, 23);
-		contentPane.add(btnNuevo);
+		btnNuevo.setBounds(45, 274, 90, 23);
+		getContentPane().add(btnNuevo);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cerrarVentana();
-			}
-		});
-		btnCancelar.setFont(new Font("Sitka Text", Font.BOLD, 14));
-		btnCancelar.setBounds(308, 236, 96, 23);
-		contentPane.add(btnCancelar);
-		
-		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setBackground(new Color(128, 128, 192));
+		btnGuardar.setFont(new Font("Sitka Text", Font.PLAIN, 10));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				crearCliente();
 			}
 		});
-		btnGuardar.setFont(new Font("Sitka Text", Font.BOLD, 14));
-		btnGuardar.setBounds(166, 236, 96, 23);
-		contentPane.add(btnGuardar);
+		btnGuardar.setBounds(180, 274, 90, 23);
+		getContentPane().add(btnGuardar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBackground(new Color(128, 128, 192));
+		btnCancelar.setFont(new Font("Sitka Text", Font.PLAIN, 10));
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrarVentana();
+			}
+		});
+		btnCancelar.setBounds(315, 274, 89, 23);
+		getContentPane().add(btnCancelar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 284, 384, 257);
-		contentPane.add(scrollPane);
+		scrollPane.setBounds(45, 308, 359, 140);
+		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setFont(new Font("Sitka Text", Font.PLAIN, 10));
+		table.setBackground(new Color(128, 128, 192));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"C\u00E9dula", "Nombres", "Apellidos", "Direccion", "Telefono", "Email"
+				"C\u00E9dula", "Nombres", "Apellidos", "Tel\u00E9fono", "Email", "Direcci\u00F3n"
 			}
 		));
 		scrollPane.setViewportView(table);
-		model=(DefaultTableModel)table.getModel();
+		model = (DefaultTableModel) table.getModel();
 
 	}
+	
+	private void limpiarCampos() {
+		this.txtCedula.setText("");
+		this.txtNombres.setText("");
+		this.txtApellidos.setText("");
+		this.txtTelefono.setText("");
+		this.txtEmail.setText("");
+		this.txtDireccion.setText("");
+	}
+	
+	private void cerrarVentana() {
+		this.setVisible(false);
+	}
+	
 	private void crearCliente() {
-		cliente.setCedula(txtCedula.getText());
-		cliente.setNombre(txtNombres.getText());
-		cliente.setApellido(txtApellidos.getText());
-		cliente.setDireccion(txtDireccion.getText());
-		cliente.setTelefono(txtTelefono.getText());
-		cliente.setEmail(txtEmail.getText());
+		Cliente cliente = new Cliente(
+				this.txtCedula.getText(),
+				this.txtNombres.getText(),
+				this.txtApellidos.getText(),
+				this.txtTelefono.getText(),
+				this.txtEmail.getText(),
+				this.txtDireccion.getText()
+				);
+		clientes.add(cliente);
 		agregarFila();
-			
 	}
-
+	
 	private void agregarFila() {
 		Object[] fila=new Object[6];
-		fila[0]=cliente.getCedula();
-		fila[1]=cliente.getNombre();
-		fila[2]=cliente.getApellido();
-		fila[3]=cliente.getDireccion();
-		fila[4]=cliente.getTelefono();
-		fila[5]=cliente.getEmail();
-		model.addRow(fila);
+		fila[0]= clientes.get(clientes.size()-1).getCedula();
+		fila[1]= clientes.get(clientes.size()-1).getNombres();
+		fila[2]= clientes.get(clientes.size()-1).getApellidos();
+		fila[3]= clientes.get(clientes.size()-1).getTelefono();
+		fila[4]= clientes.get(clientes.size()-1).getEmail();
+		fila[5]= clientes.get(clientes.size()-1).getDireccion();
+		this.model.addRow(fila);
 	}
-	public void cerrarVentana() {
-		this.dispose();
-	}
-	public DefaultTableModel getModeloTabla() {
-	    return model;
+	
+	public static ArrayList<Cliente> getClientes() {
+		return clientes;
 	}
 }

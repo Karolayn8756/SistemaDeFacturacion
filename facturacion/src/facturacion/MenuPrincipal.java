@@ -1,6 +1,5 @@
 package facturacion;
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,21 +8,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import java.awt.Font;
-import java.awt.Color;
+import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import java.awt.CardLayout;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class MenuPrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private FrmCliente frmCliente;
+	private FrmProducto frmProducto;
+	private FrmFacturar frmFacturar;
 	private JDesktopPane desktopPane;
-	
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,78 +41,73 @@ public class MenuPrincipal extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public MenuPrincipal() {
-		setTitle("SISTEMA DE FACTURACIÓN");
+		setTitle("Sistema de facturación");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 803, 614);
+		setBounds(100, 100, 675, 454);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setFont(new Font("Sitka Text", Font.BOLD, 16));
 		menuBar.setBackground(new Color(255, 128, 192));
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("File");
-		mnNewMenu.setBackground(new Color(255, 128, 192));
-		mnNewMenu.setFont(new Font("Sitka Text", Font.BOLD, 16));
-		menuBar.add(mnNewMenu);
+		JMenu mnArchivo = new JMenu("Archivo");
+		mnArchivo.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon5.png")));
+		mnArchivo.setFont(new Font("Sitka Text", Font.BOLD, 14));
+		mnArchivo.setBackground(new Color(128, 128, 192));
+		menuBar.add(mnArchivo);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Exit");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(getDefaultCloseOperation());;
+				cerrarVentana();
 			}
 		});
-		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		mnNewMenu.add(mntmNewMenuItem_1);
+		mnArchivo.add(mntmSalir);
 		
-		JMenu mnNewMenu_3 = new JMenu("Clientes");
-		mnNewMenu_3.setBackground(new Color(255, 128, 192));
-		mnNewMenu_3.setFont(new Font("Sitka Text", Font.BOLD, 16));
-		menuBar.add(mnNewMenu_3);
+		JMenu mnClientes = new JMenu("Clientes");
+		mnClientes.setFont(new Font("Sitka Text", Font.BOLD, 14));
+		mnClientes.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon1.png")));
+		mnClientes.setBackground(new Color(128, 128, 192));
+		menuBar.add(mnClientes);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Crear Clientes");
-		mntmNewMenuItem_4.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        if (frmCliente == null || frmCliente.isClosed()) {
-		            frmCliente = new FrmCliente();
-		            desktopPane.add(frmCliente);
-		            frmCliente.setVisible(true);
-		        } else {
-		            frmCliente.toFront();
-		        }
-		    }
+		JMenuItem mntmNuevoCliente = new JMenuItem("Nuevo Cliente");
+		mntmNuevoCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirFrmClientes();
+			}
 		});
+		mnClientes.add(mntmNuevoCliente);
 		
-		mnNewMenu_3.add(mntmNewMenuItem_4);
+		JMenu mnProductos = new JMenu("Productos");
+		mnProductos.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon3.png")));
+		mnProductos.setFont(new Font("Sitka Text", Font.BOLD, 14));
+		mnProductos.setBackground(new Color(128, 128, 192));
+		menuBar.add(mnProductos);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Lista de Clientes");
-		mntmNewMenuItem_5.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mostrarListaClientes();
-		    }
+		JMenuItem mntmNuevoProducto = new JMenuItem("Nuevo Producto");
+		mntmNuevoProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirFrmProducto();
+			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_5);
+		mnProductos.add(mntmNuevoProducto);
 		
-		JMenu mnNewMenu_1 = new JMenu("Productos");
-		mnNewMenu_1.setBackground(new Color(255, 128, 192));
-		mnNewMenu_1.setFont(new Font("Sitka Text", Font.BOLD, 16));
-		menuBar.add(mnNewMenu_1);
+		JMenu mnFacturas = new JMenu("Facturas");
+		mnFacturas.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon4.png")));
+		mnFacturas.setFont(new Font("Sitka Text", Font.BOLD, 14));
+		mnFacturas.setBackground(new Color(128, 128, 192));
+		menuBar.add(mnFacturas);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Crear Producto");
-		mnNewMenu_1.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Lista Productos");
-		mnNewMenu_1.add(mntmNewMenuItem_2);
-		
-		JMenu mnNewMenu_2 = new JMenu("Redes Sociales");
-		mnNewMenu_2.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon1.png")));
-		mnNewMenu_2.setBackground(new Color(255, 128, 192));
-		mnNewMenu_2.setFont(new Font("Sitka Text", Font.BOLD, 16));
-		menuBar.add(mnNewMenu_2);
-		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Facebook");
-		mntmNewMenuItem_3.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon2.png")));
-		mnNewMenu_2.add(mntmNewMenuItem_3);
+		JMenuItem mntmFacturar = new JMenuItem("Facturar");
+		mntmFacturar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirFrmFacturar();
+			}
+		});
+		mnFacturas.add(mntmFacturar);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -116,14 +115,46 @@ public class MenuPrincipal extends JFrame {
 		contentPane.setLayout(new CardLayout(0, 0));
 		
 		desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(128, 128, 192));
-		contentPane.add(desktopPane, "name_64221350094100");
-		desktopPane.setLayout(null);
+		desktopPane.setBackground(new Color(192, 192, 192));
+		contentPane.add(desktopPane, "name_335641104678300");
 	}
-	private void mostrarListaClientes() {
-	    FrmListaCliente frmListaCliente = new FrmListaCliente(frmCliente.getModeloTabla());
-	    desktopPane.add(frmListaCliente);
-	    frmListaCliente.setVisible(true);
+	
+	private void cerrarVentana() {
+		this.dispose();
 	}
+	
+	private void abrirFrmClientes() {
+		if (this.frmCliente == null) {
+			this.frmCliente = new FrmCliente();
+			this.desktopPane.add(frmCliente);
+			this.frmCliente.setVisible(true);
+		} else if (!this.frmCliente.isVisible()){
+			this.frmCliente.setVisible(true);
+		} else {
+			this.frmCliente.toFront();
+		}
+	}
+	
+	private void abrirFrmProducto() {
+		if (this.frmProducto == null) {
+			this.frmProducto = new FrmProducto();
+			this.desktopPane.add(frmProducto);
+			this.frmProducto.setVisible(true);
+		} else if (!this.frmProducto.isVisible()){
+			this.frmProducto.setVisible(true);
+		} else {
+			this.frmProducto.toFront();
+		}
+	}
+	
+	private void abrirFrmFacturar() {
+		if (this.frmFacturar == null || this.frmFacturar.isClosed()) {
+			this.frmFacturar = new FrmFacturar();
+			this.desktopPane.add(frmFacturar);
+			this.frmFacturar.setVisible(true);
+		}  else {
+			this.frmFacturar.toFront();
+		}
+	}
+	
 }
-
