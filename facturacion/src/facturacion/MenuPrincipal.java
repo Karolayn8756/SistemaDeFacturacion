@@ -78,8 +78,12 @@ public class MenuPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				abrirFrmClientes();
 			}
+			
 		});
 		mnClientes.add(mntmNuevoCliente);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+		mnClientes.add(mntmNewMenuItem);
 		
 		JMenu mnProductos = new JMenu("Productos");
 		mnProductos.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/facturacion/icon/icon3.png")));
@@ -156,5 +160,4 @@ public class MenuPrincipal extends JFrame {
 			this.frmFacturar.toFront();
 		}
 	}
-	
 }
